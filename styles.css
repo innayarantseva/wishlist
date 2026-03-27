@@ -1,0 +1,176 @@
+@view-transition {
+  navigation: auto;
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  max-inline-size: 64rem;
+  margin-inline: auto;
+  padding: 2rem;
+  line-height: 1.6;
+}
+
+h1 {
+  margin-block-end: 0.5rem;
+}
+
+/* --- Filters --- */
+
+header nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-block-end: 2rem;
+
+  & button {
+    font: inherit;
+    font-size: 0.875rem;
+    cursor: pointer;
+    padding: 0.2rem 0.75rem;
+    border: 1px solid currentColor;
+    border-radius: 2rem;
+    background: none;
+    color: inherit;
+    opacity: 0.5;
+    transition: opacity 0.15s;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &.active {
+      opacity: 1;
+      font-weight: 600;
+    }
+  }
+}
+
+/* --- Grid --- */
+
+.wish-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 1.5rem;
+}
+
+/* --- Card --- */
+
+wish-card[hidden] {
+  display: none;
+}
+
+.wish-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+
+  & img {
+    display: block;
+    inline-size: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+
+  & h2 {
+    font-size: 1rem;
+    margin-block-start: 0.5rem;
+  }
+
+  & .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+    opacity: 0.7;
+    margin-block-start: 0.25rem;
+  }
+}
+
+/* --- Detail --- */
+
+.wish-detail {
+  max-inline-size: 36rem;
+
+  & img {
+    display: block;
+    inline-size: 100%;
+    max-block-size: 24rem;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    margin-block-end: 1rem;
+  }
+
+  & h2 {
+    font-size: 1.5rem;
+    margin-block-end: 0.5rem;
+  }
+
+  & .description {
+    margin-block-end: 1rem;
+    opacity: 0.8;
+  }
+
+  & .meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-block-end: 1rem;
+  }
+
+  & a {
+    color: inherit;
+  }
+}
+
+.back-link {
+  display: inline-block;
+  margin-block-end: 1.5rem;
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+/* --- Priority --- */
+
+.priority {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  &[data-level="high"] {
+    color: light-dark(#b91c1c, #fca5a5);
+  }
+
+  &[data-level="medium"] {
+    color: light-dark(#a16207, #fcd34d);
+  }
+
+  &[data-level="low"] {
+    opacity: 0.5;
+  }
+}
+
+/* --- Empty state --- */
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding-block: 4rem;
+  opacity: 0.5;
+}

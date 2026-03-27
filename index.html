@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Things I'd love to receive as gifts">
+  <meta name="color-scheme" content="light dark">
+  <title>Inna's Wishlist</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Inna's Wishlist</h1>
+    <nav aria-label="Filter by category"></nav>
+  </header>
+
+  <main>
+    <div class="wish-grid"></div>
+
+  </main>
+
+  <template id="wish-card-tpl">
+    <a class="wish-card" href="">
+      <img src="" alt="" loading="lazy" width="400" height="400">
+      <h2></h2>
+      <div class="meta">
+        <span class="price"></span>
+        <span class="priority"></span>
+      </div>
+    </a>
+  </template>
+
+  <script type="speculationrules">
+    {
+      "prerender": [{
+        "where": { "selector": ".wish-card" },
+        "eagerness": "moderate"
+      }]
+    }
+  </script>
+
+  <script src="data/wishes.js"></script>
+  <script src="components/WishCard.js"></script>
+  <script>
+    (() => {
+      const grid = document.querySelector(".wish-grid");
+      const nav = document.querySelector("header nav");
+
+      const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+      const categories = [...new Set(WISHES.map((w) => w.category))].sort();
+      const mkBtn = (label, cat) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = label;
+        btn.dataset.category = cat;
+        if (!cat) btn.classList.add("active");
+        return btn;
+      };
+      nav.append(mkBtn("All", ""), ...categories.map((c) => mkBtn(cap(c), c)));
+
+      for (const wish of WISHES) {
+        const card = document.createElement("wish-card");
+        for (const [key, value] of Object.entries(wish)) {
+          card.setAttribute(key, value);
+        }
+        grid.append(card);
+      }
+
+      nav.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-category]");
+        if (!btn) return;
+        const cat = btn.dataset.category;
+        const update = () => {
+          for (const card of grid.querySelectorAll("wish-card")) {
+            card.hidden = !!cat && card.getAttribute("category") !== cat;
+          }
+          for (const b of nav.querySelectorAll("button")) {
+            b.classList.toggle("active", b === btn);
+          }
+        };
+        document.startViewTransition?.(update) ?? update();
+      });
+    })();
+  </script>
+</body>
+</html>
