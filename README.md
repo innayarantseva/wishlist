@@ -1,20 +1,42 @@
 # Wishlist
 
-A minimal static wishlist — pure HTML, CSS, and JS with no frameworks. Built as an MPA with cross-document view transitions.
+A minimal static wishlist — plain HTML, CSS, and JavaScript, no frameworks. It is a small multi-page app (MPA) with cross-document view transitions between the list and each item.
 
 ## Running locally
 
-Just open `index.html` in your browser — no server required.
+Serve the project root with any static file server; there is no build step. For example:
 
-## Editing your wishlist
+```bash
+python3 -m http.server 8080
+```
 
-All items live in `data/wishes.js`. Each wish is a plain object:
+Then open `http://localhost:8080` and use `index.html` for the grid or open a detail URL such as `wish.html?id=your-wish-id`.
+
+## Pages and scripts
+
+| Page | Script | Role |
+|------|--------|------|
+| `index.html` | `main.js` | Renders all wishes in a grid and wires the category filter. |
+| `wish.html?id=…` | `wish.js` | Shows one wish; if the `id` is missing or unknown, shows a short “not found” message. |
+
+Custom elements live under `components/`:
+
+- **`wish-card`** — One card on the list; links to `wish.html?id=…`, sets `view-transition-name` on the image and title for transitions.
+- **`category-filter`** — Renders filter buttons from the unique categories in the data. The first option is "All" (show everything). Choosing a category dispatches a bubbling `filter` event with `detail.category` (or an empty string for choosing all items).
+
+`main.js` listens for that event, toggles `hidden` on cards, and runs the update inside `document.startViewTransition` when the API exists.
+
+`index.html` includes a **Speculation Rules** snippet to prerender linked wish pages (`moderate` eagerness for `.wish-card` links).
+
+## Data
+
+All items are exported from `data/wishes.js` as `WISHES`. Each wish is a plain object:
 
 ```js
 {
   id: "unique-slug",
   name: "Item Name",
-  description: "Why you want it.",
+  description: "Why I want it.",
   url: "https://link-to-buy.example",
   image: "https://placehold.co/400x400/e8e8e8/555?text=Item",
   price: "$42",
@@ -23,31 +45,18 @@ All items live in `data/wishes.js`. Each wish is a plain object:
 }
 ```
 
-- **id** — URL-safe slug, must be unique (also used in `view-transition-name`)
-- **url** — leave as `""` if there's no purchase link
-- **priority** — `high`, `medium`, or `low`
-- **category** — any string; filter buttons are generated automatically
+- **id** — URL-safe slug, unique (also used in `view-transition-name` values).
+- **url** — A purchase link; omitted when empty.
+- **priority** — One of `high`, `medium`, or `low` (see `PRIORITY_TRANSLATIONS` for display text).
+- **category** — Any string; filter buttons are built automatically from distinct values.
 
-## Deploying to GitHub Pages
+## Translations
 
-Push to a repo, then enable Pages from **Settings → Pages → Source: Deploy from a branch** (pick `main` / root).
+`data/translations.js` holds user-facing labels:
 
-## Architecture
+- **`CATEGORIES_TRANSLATIONS`** — Map category keys to labels on the filter (e.g. Russian copy). Categories without an entry use the raw `category` string.
+- **`PRIORITY_TRANSLATIONS`** — Map `high` / `medium` / `low` to the short labels shown on cards and on the detail page.
 
-This is a true **multi-page app** — each view is its own HTML document:
+## Deployment
 
-| File | Purpose |
-|---|---|
-| `index.html` | List page — cards are static HTML, filtering is a small inline script |
-| `wish.html` | Detail page — structure in HTML, populated by JS from the shared data |
-| `data/wishes.js` | Wishlist data (descriptions, URLs) used by the detail page |
-| `detail.js` | Reads `?id=` param and fills in the detail page |
-
-The list page is almost entirely HTML — no external JS. The only script is ~10 lines for category filtering.
-
-## Notable APIs used
-
-- **Cross-document View Transitions** (`@view-transition { navigation: auto }`) — shared-element morph between list and detail pages, no JS orchestration needed
-- **Speculation Rules** (`<script type="speculationrules">`) — pre-renders detail pages on hover for near-instant navigation
-- **CSS nesting & `light-dark()`** — modern CSS, no preprocessor
-- **`color-scheme: light dark`** — automatic OS-based theming
+The static site is deployed to GitHub Pages, triggered by a push to `main`.

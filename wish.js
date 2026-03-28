@@ -26,7 +26,7 @@ import { PRIORITY_TRANSLATIONS } from './data/translations.js';
   title.textContent = wish.name;
   desc.textContent = wish.description;
   price.textContent = wish.price;
-  priority.textContent = PRIORITY_TRANSLATIONS[wish.priority];
+  priority.textContent = PRIORITY_TRANSLATIONS[wish.priority] || wish.priority;
   priority.dataset.level = wish.priority;
 
   if (wish.url) {

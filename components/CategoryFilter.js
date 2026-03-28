@@ -34,7 +34,7 @@ class CategoryFilter extends HTMLElement {
         this.replaceChildren();
 
         const categories = JSON.parse(categoriesString);
-        const filters = [['Все', ''], ...categories.map((c) => [CATEGORIES_TRANSLATIONS[c], c])]
+        const filters = [['Все', ''], ...categories.map((c) => [CATEGORIES_TRANSLATIONS[c] || c, c])]
 
         for (const [label, value] of filters) {
             const button = document.createElement('button');
