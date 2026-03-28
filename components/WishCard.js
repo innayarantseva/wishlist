@@ -1,3 +1,5 @@
+import { PRIORITY_TRANSLATIONS } from '../data/translations.js';
+
 class WishCard extends HTMLElement {
     static observedAttributes = [
         'name', 'price', 'priority', 'category', 'image', 'url', 'description', 'id'
@@ -29,9 +31,10 @@ class WishCard extends HTMLElement {
 
         this.querySelector('.price').textContent = this.getAttribute('price') ?? '';
 
-        const pri = this.querySelector('.priority');
-        pri.textContent = this.getAttribute('priority') ?? '';
-        pri.dataset.level = this.getAttribute('priority') ?? '';
+        const priority = this.querySelector('.priority');
+        const priorityLevel = this.getAttribute('priority') ?? '';
+        priority.textContent = PRIORITY_TRANSLATIONS[priorityLevel];
+        priority.dataset.level = priorityLevel;
     }
 }
 

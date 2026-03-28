@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Things I'd love to receive as gifts">
+  <meta name="description" content="Things I'd love to get for myself, but keep telling myself there are more important expenses">
   <meta name="color-scheme" content="light dark">
   <title>Inna's Wishlist</title>
   <link rel="stylesheet" href="styles.css">
@@ -11,7 +11,7 @@
 </head>
 <body>
   <header>
-    <h1>Inna's Wishlist</h1>
+    <h1>🌿 Inna's Wishlist</h1>
     <nav aria-label="Filter by category">
       <category-filter></category-filter>
     </nav>
@@ -42,38 +42,6 @@
     }
   </script>
 
-  <script src="data/wishes.js"></script>
-  <script src="components/WishCard.js"></script>
-  <script src="components/CategoryFilter.js"></script>
-  <script>
-    (() => {
-      const grid = document.querySelector(".wish-grid");
-      const filter = document.querySelector("category-filter");
-
-      const categories = [...new Set(WISHES.map((w) => w.category))].sort();
-      filter.setAttribute("categories", JSON.stringify(categories));
-
-      for (const wish of WISHES) {
-        const card = document.createElement("wish-card");
-        for (const [key, value] of Object.entries(wish)) {
-          card.setAttribute(key, value);
-        }
-        grid.append(card);
-      }
-
-      filter.addEventListener("filter", (event) => {
-        const { category } = event.detail;
-        const cards = grid.querySelectorAll("wish-card");
-
-        const update = () => {
-          for (const card of cards) {
-            card.hidden = !!category && card.getAttribute("category") !== category;
-          }
-        };
-
-        document.startViewTransition?.(update) ?? update();
-      });
-    })();
-  </script>
+  <script type="module" src="main.js"></script>
 </body>
 </html>

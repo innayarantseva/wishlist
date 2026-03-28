@@ -1,3 +1,6 @@
+import { WISHES } from './data/wishes.js';
+import { PRIORITY_TRANSLATIONS } from './data/translations.js';
+
 (() => {
   const id = new URLSearchParams(location.search).get('id');
   const wish = WISHES.find((w) => w.id === id);
@@ -23,7 +26,7 @@
   title.textContent = wish.name;
   desc.textContent = wish.description;
   price.textContent = wish.price;
-  priority.textContent = wish.priority;
+  priority.textContent = PRIORITY_TRANSLATIONS[wish.priority];
   priority.dataset.level = wish.priority;
 
   if (wish.url) {

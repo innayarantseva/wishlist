@@ -1,4 +1,4 @@
-const WISHES = [
+export const WISHES = [
   {
     id: "harry-styles-vinyl",
     name: "Harry Styles - Kiss All The Time. Disco, Occasionally blue vinyl",
@@ -28,7 +28,7 @@ const WISHES = [
       "Мне такой нужен, чтобы более точно измерять пульс на пробежках и чтобы часики считали running economy",
     url: "https://www.garmin.com/de-DE/p/1473393/",
     image: "https://res.garmin.com/transform/image/upload/c_limit,dpr_1.0,f_auto,h_1349,q_auto,w_2340/c_limit,h_1349,w_2340/v1/Product_Images/en/products/010-13383-01/v/cf-xl?pgw=1&pgwact=1",
-    price: "€139,99 (без скидки 169,99)",
+    price: "€139,99 (без скидки €169,99)",
     priority: "high",
     category: "running",
   },
@@ -45,13 +45,13 @@ const WISHES = [
   },
   {
     id: "harry-styles-tix",
-    name: "Harry Styles London Tix",
+    name: "Билеты на Harry Styles в Лондоне",
     description:
       "Возможно, их уже нет... Плюс не знаю, захочет ли Юра пойти со мной :)",
     url: "https://www.ticketmaster.co.uk/harry-styles-tickets/artist/5228999",
     image: "https://placehold.co/400x400/e8e8e8/555?text=Tix",
     price: "от £84.15",
     priority: "medium",
-    category: "fun",
+    category: "tix",
   },
 ]

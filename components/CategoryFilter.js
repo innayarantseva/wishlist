@@ -1,4 +1,4 @@
-const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+import { CATEGORIES_TRANSLATIONS } from '../data/translations.js';
 
 class CategoryFilter extends HTMLElement {
     static observedAttributes = ['categories'];
@@ -34,7 +34,7 @@ class CategoryFilter extends HTMLElement {
         this.replaceChildren();
 
         const categories = JSON.parse(categoriesString);
-        const filters = [['All', ''], ...categories.map((c) => [capitalize(c), c])]
+        const filters = [['Все', ''], ...categories.map((c) => [CATEGORIES_TRANSLATIONS[c], c])]
 
         for (const [label, value] of filters) {
             const button = document.createElement('button');
