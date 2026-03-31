@@ -54,4 +54,15 @@ export const WISHES = [
     priority: "medium",
     category: "tix",
   },
+  {
+    id: "lens",
+    name: "Блинчик 28mm",
+    description:
+      "Сто лет как хочу себе блинчик; теперь когда мой полтос сломался окончательно, кажется, настало его время!",
+    url: "https://www.canon.de/store/canon-rf-28mm-f2-8-stm-objektiv/6128C005/",
+    image: "https://i1.adis.ws/i/canon/6128C005_RF-28mm-F2.8-STM_01?w=940&bg=rgb(245,246,246)&fmt=webp&qlt=100&sm=aspect&aspect=1:1",
+    price: "€315",
+    priority: "high",
+    category: "hobbies",
+  },
 ]
