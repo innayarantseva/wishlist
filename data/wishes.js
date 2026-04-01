@@ -65,4 +65,15 @@ export const WISHES = [
     priority: "high",
     category: "hobbies",
   },
+  {
+    id: "garmin-band",
+    name: "Кожаный ремешок для Garmin",
+    description: "Чтобы ходить с гармином в филармонию и на званые ужины",
+    url: "https://www.garmin.com/de-DE/p/610827/pn/010-12738-04/",
+    image: "https://res.garmin.com/transform/image/upload/c_limit,dpr_1.0,f_auto,h_1349,q_auto,w_2340/c_limit,h_1349,w_2340/v1/Product_Images/en/products/010-12738-04/v/cf-lg-40761a6b-33ba-4eae-8a34-063093028de1?pgw=1&pgwact=1",
+    price: "€249,99",
+    priority: "low",
+    category: "accessories"
+
+  }
 ]
